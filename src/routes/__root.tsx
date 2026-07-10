@@ -77,14 +77,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "TechXplore Summit 2025 — Vatebra Academy" },
+      {
+        name: "description",
+        content:
+          "TechXplore Summit 2025: Africa's premier gathering of founders, engineers and investors shaping tomorrow's technology. 15 November 2025, Lagos.",
+      },
+      { name: "author", content: "Vatebra Academy" },
+      { property: "og:title", content: "TechXplore Summit 2025" },
+      {
+        property: "og:description",
+        content:
+          "Unleash the future of tech. Keynotes, robotics, pitch competitions & networking. Reserve your seat.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
