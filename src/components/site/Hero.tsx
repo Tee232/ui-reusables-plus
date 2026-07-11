@@ -40,9 +40,9 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white">
-              Unleash the Future of
+              Unleash the Future of Tech
               <br />
-              Tech at <span className="text-brand">TechXplore</span>
+              at <span className="text-gradient-brand">TechXplore</span>
               <br />
               Summit 2025
             </h1>
@@ -77,7 +77,7 @@ export function Hero() {
           </div>
 
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative">
+            <div className="relative animate-float">
               <div className="absolute -inset-6 rounded-full bg-brand/20 blur-3xl" />
               <div className="relative h-[340px] w-[340px] md:h-[440px] md:w-[440px] rounded-full overflow-hidden ring-4 ring-brand/40 shadow-2xl">
                 <img
