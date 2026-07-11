@@ -33,7 +33,42 @@ const TIERS: Tier[] = [
   },
 ];
 
-const LOGOS = ["tv", "NETFLIX", "S&P", "SCOTIABANK", "Capital One", "BARCLAYS"];
+type Logo = { name: string; slug: string };
+
+// Grayscale brand marks via Simple Icons CDN (free, no auth, monochrome).
+const LOGOS: Logo[] = [
+  // Primary Sponsors
+  { name: "Google", slug: "google" },
+  { name: "Microsoft", slug: "microsoft" },
+  { name: "Amazon Web Services", slug: "amazonwebservices" },
+  { name: "GitHub", slug: "github" },
+  // Technology Partners
+  { name: "Figma", slug: "figma" },
+  { name: "Vercel", slug: "vercel" },
+  { name: "Cloudflare", slug: "cloudflare" },
+  { name: "Notion", slug: "notion" },
+  // Community Partners
+  { name: "GitLab", slug: "gitlab" },
+  { name: "Hashnode", slug: "hashnode" },
+  { name: "Postman", slug: "postman" },
+  { name: "Docker", slug: "docker" },
+];
+
+function LogoTrack() {
+  return (
+    <div className="flex shrink-0 items-center gap-16 pr-16">
+      {LOGOS.map((l) => (
+        <img
+          key={l.slug}
+          src={`https://cdn.simpleicons.org/${l.slug}/8a8a8a`}
+          alt={`${l.name} logo`}
+          loading="lazy"
+          className="h-10 w-auto max-w-[140px] object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:scale-110 hover:drop-shadow-md"
+        />
+      ))}
+    </div>
+  );
+}
 
 export function Sponsorship() {
   return (
@@ -48,8 +83,10 @@ export function Sponsorship() {
               className={`group rounded-2xl p-[2px] ring-1 ${t.ring} shadow-[var(--shadow-card)] hover:-translate-y-1 transition-transform duration-300`}
               style={{ background: t.gradient }}
             >
-              <div className="rounded-2xl p-8 text-center flex flex-col items-center gap-4 h-full"
-                   style={{ background: t.gradient }}>
+              <div
+                className="rounded-2xl p-8 text-center flex flex-col items-center gap-4 h-full"
+                style={{ background: t.gradient }}
+              >
                 <h3 className="text-lg font-semibold text-heading">{t.name}</h3>
                 <p className="text-3xl font-bold text-heading">{t.price}</p>
                 <Button variant={t.btn} size="sm" className="mt-2">
@@ -60,19 +97,27 @@ export function Sponsorship() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 opacity-70">
-          {LOGOS.map((l) => (
-            <span
-              key={l}
-              className="text-heading text-lg font-semibold tracking-wider"
-            >
-              {l}
-            </span>
-          ))}
+        {/* Marquee */}
+        <div
+          className="group relative mt-14 overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+          }}
+          aria-label="Sponsors and partners"
+        >
+          <div className="flex w-max animate-marquee items-center group-hover:[animation-play-state:paused]">
+            <LogoTrack />
+            <LogoTrack />
+          </div>
         </div>
 
         <div className="mt-10 text-center">
-          <Button variant="brand" size="md">Become a Sponsor</Button>
+          <Button variant="brand" size="md">
+            Become a Sponsor
+          </Button>
         </div>
       </div>
     </section>
