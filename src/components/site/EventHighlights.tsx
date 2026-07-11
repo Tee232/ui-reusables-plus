@@ -6,49 +6,65 @@ import {
   Mic,
   Network,
   Layers,
+  type LucideIcon,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 
-const ITEMS = [
+type Tone = "green" | "red" | "gold";
+
+interface Item {
+  icon: LucideIcon;
+  tone: Tone;
+  title: string;
+  desc: string;
+}
+
+const TONES: Record<Tone, { card: string; icon: string }> = {
+  green: { card: "bg-brand/10", icon: "text-brand" },
+  red: { card: "bg-alert/10", icon: "text-alert" },
+  gold: { card: "bg-gold/10", icon: "text-gold" },
+};
+
+const ITEMS: Item[] = [
   {
     icon: MessageSquare,
-    color: "text-brand",
+    tone: "green",
     title: "Debates",
     desc: "Engage in thought-provoking debates on today's biggest tech questions.",
   },
   {
     icon: Cpu,
-    color: "text-alert",
-    title: "Robotics Competition (Technology Displays)",
+    tone: "red",
+    title: "Robotics Competition",
     desc: "Showcase your innovation and compete with top African engineers for exciting prizes.",
   },
   {
     icon: Rocket,
-    color: "text-alert",
+    tone: "gold",
     title: "Business Creation Competition",
     desc: "Pitch your startup, meet investors, and win seed funding to grow your idea.",
   },
   {
     icon: Coffee,
-    color: "text-brand",
+    tone: "green",
     title: "Fire-Side Chat",
     desc: "Intimate, candid conversations with leading founders and industry executives.",
   },
   {
     icon: Mic,
-    color: "text-alert",
+    tone: "red",
     title: "Keynote Speeches",
     desc: "Hear insights from thought leaders shaping the future of technology across Africa.",
   },
   {
     icon: Network,
-    color: "text-brand",
+    tone: "gold",
     title: "Networking Opportunities",
     desc: "Connect with peers, mentors, and future collaborators in a curated setting.",
   },
   {
     icon: Layers,
-    color: "text-alert",
+    tone: "green",
     title: "Exhibition Zone",
     desc: "Explore the latest products, services and prototypes from Africa's boldest builders.",
   },
@@ -60,22 +76,26 @@ export function EventHighlights() {
       <div className="container-page">
         <SectionHeading title="Event Highlights" />
 
-        <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8 max-w-4xl mx-auto">
-          {ITEMS.map((item) => (
-            <div key={item.title} className="flex gap-4">
-              <div className={`shrink-0 mt-1 ${item.color}`}>
-                <item.icon size={26} strokeWidth={2.2} />
-              </div>
-              <div>
-                <h3 className="text-base font-semibold text-heading">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {ITEMS.map((item) => {
+            const tone = TONES[item.tone];
+            return (
+              <article
+                key={item.title}
+                className={`${tone.card} rounded-2xl p-6 md:p-7 h-full flex flex-col transition-transform duration-300 hover:-translate-y-1 shadow-[var(--shadow-card)]`}
+              >
+                <div className="h-12 w-12 rounded-full bg-white shadow-sm flex items-center justify-center">
+                  <item.icon size={22} strokeWidth={2.2} className={tone.icon} />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold text-heading leading-snug">
                   {item.title}
                 </h3>
-                <p className="mt-1 text-sm text-body leading-relaxed">
+                <p className="mt-2 text-sm text-body leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
-            </div>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
