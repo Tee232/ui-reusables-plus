@@ -13,10 +13,11 @@ const TIERS: Tier[] = [
   {
     name: "Platinum Tier",
     price: "₦10,000,000",
-    gradient: "linear-gradient(135deg,#e6e6e6 0%,#b8b8b8 50%,#e6e6e6 100%)",
-    ring: "ring-neutral-300",
+    gradient: "linear-gradient(135deg,#EEF3F8 0%,#c9d6e4 50%,#EEF3F8 100%)",
+    ring: "ring-[#c9d6e4]",
     btn: "brand",
   },
+
   {
     name: "Gold Tier",
     price: "₦5,000,000",
