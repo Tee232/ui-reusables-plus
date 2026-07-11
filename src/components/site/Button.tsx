@@ -1,7 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "brand" | "gold" | "outline" | "hero" | "ghost";
+type Variant = "brand" | "brand-outline" | "gold" | "outline" | "hero" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,6 +13,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variants: Record<Variant, string> = {
   brand:
     "bg-brand text-brand-foreground hover:brightness-110 active:brightness-95 shadow-[0_4px_14px_-4px_rgba(99,191,19,0.6)]",
+  "brand-outline":
+    "border border-brand text-brand bg-transparent hover:bg-brand hover:text-brand-foreground",
   gold:
     "bg-gold text-gold-foreground hover:brightness-105 active:brightness-95",
   outline:

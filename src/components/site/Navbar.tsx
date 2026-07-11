@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./Button";
+import logoAsset from "@/assets/vatebra_academy_logo.png.asset.json";
 
 const LINKS = [
   { label: "About Us", href: "#about" },
@@ -16,9 +17,12 @@ export function Navbar() {
   return (
     <header className="absolute top-0 left-0 right-0 z-30">
       <div className="container-page flex items-center justify-between py-5">
-        <a href="#" className="flex items-center gap-2 text-white font-bold text-lg">
-          <span className="inline-block h-8 w-8 rounded-full bg-brand" />
-          <span>vatebra</span>
+        <a href="#" className="flex items-center" aria-label="Vatebra Academy">
+          <img
+            src={logoAsset.url}
+            alt="Vatebra Academy"
+            className="h-9 md:h-10 w-auto"
+          />
         </a>
 
         <nav className="hidden lg:flex items-center gap-8">
@@ -34,7 +38,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button variant="brand" size="sm">Register Now</Button>
+          <Button variant="brand-outline" size="sm">Register Now</Button>
         </div>
 
         <button
@@ -60,7 +64,7 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
-            <Button variant="brand" size="sm" className="w-full">Register Now</Button>
+            <Button variant="brand-outline" size="sm" className="w-full">Register Now</Button>
           </div>
         </div>
       )}
