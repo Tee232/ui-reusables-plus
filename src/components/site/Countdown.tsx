@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
+import eventBg from "@/assets/countdown-event-bg.jpg.asset.json";
+
 
 // Single source of truth for the event date.
 const EVENT_DATE = new Date("2025-11-15T10:00:00+01:00").getTime();
@@ -39,8 +41,19 @@ export function Countdown() {
 
   return (
     <section className="relative overflow-hidden bg-hero">
-      {/* Decorative rotating wedge background — behind everything. */}
+      {/* Event background photo — sits behind the decorative wedge. */}
+      <img
+        src={eventBg.url}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1920}
+        height={1080}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+      />
+      {/* Decorative rotating wedge background — behind the timer, above the photo. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+
         <div
           className="absolute left-1/2 top-1/2 aspect-square w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-30 mix-blend-screen"
           style={{
