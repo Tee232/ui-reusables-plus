@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
 
-const TARGET = new Date("2025-11-15T10:00:00+01:00").getTime();
+// Single source of truth for the event date.
+const EVENT_DATE = new Date("2025-11-15T10:00:00+01:00").getTime();
 
 function calc() {
-  const now = Date.now();
-  const diff = Math.max(0, TARGET - now);
-  const days = Math.floor(diff / 86_400_000);
-  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
-  const minutes = Math.floor((diff % 3_600_000) / 60_000);
-  const seconds = Math.floor((diff % 60_000) / 1000);
-  return { days, hours, minutes, seconds };
+  const diff = Math.max(0, EVENT_DATE - Date.now());
+  return {
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutes: Math.floor((diff % 3_600_000) / 60_000),
+    seconds: Math.floor((diff % 60_000) / 1000),
+  };
 }
 
 const LABELS: [keyof ReturnType<typeof calc>, string][] = [
@@ -19,6 +20,14 @@ const LABELS: [keyof ReturnType<typeof calc>, string][] = [
   ["minutes", "Minutes"],
   ["seconds", "Seconds"],
 ];
+
+// Wedge anchored at the top-left corner of the square, radiating along
+// the diagonal — matches the Figma "Component 151" reference. Rotating
+// the whole element 90° at a time walks the wedge around all four corners:
+// TL → TR → BR → BL → TL.
+const WEDGE_BG =
+  "conic-gradient(from 0deg at 0% 0%, rgba(10,60,10,0.95) 0deg, rgba(10,60,10,0.6) 20deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 360deg), linear-gradient(135deg, #e8efe8 0%, #ffffff 55%, #e8efe8 100%)";
+
 
 export function Countdown() {
   const [t, setT] = useState(() => calc());
@@ -30,38 +39,18 @@ export function Countdown() {
 
   return (
     <section className="relative overflow-hidden bg-hero">
-      {/* Rotating decorative gradient shapes */}
+      {/* Decorative rotating wedge background — behind everything. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute -top-1/3 -left-1/4 h-[900px] w-[900px] rounded-[38%] opacity-25 will-change-transform"
+          className="absolute left-1/2 top-1/2 aspect-square w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-30 mix-blend-screen"
           style={{
-            background:
-              "conic-gradient(from 0deg, rgba(99,191,19,0.55), rgba(234,173,17,0.15), rgba(214,12,33,0.35), rgba(99,191,19,0.55))",
-            filter: "blur(40px)",
-            animation: "spin-slow 40s linear infinite",
+            background: WEDGE_BG,
+            animation: "countdown-corner-cycle 14s linear infinite",
           }}
         />
-        <div
-          className="absolute -bottom-1/3 -right-1/4 h-[820px] w-[820px] rounded-[42%] opacity-20 will-change-transform"
-          style={{
-            background:
-              "conic-gradient(from 120deg, rgba(234,173,17,0.5), rgba(99,191,19,0.2), rgba(214,12,33,0.3), rgba(234,173,17,0.5))",
-            filter: "blur(50px)",
-            animation: "spin-reverse 60s linear infinite",
-          }}
-        />
-        <div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-[45%] opacity-15 will-change-transform"
-          style={{
-            background:
-              "conic-gradient(from 45deg, rgba(99,191,19,0.4), transparent 40%, rgba(214,12,33,0.35), transparent 80%, rgba(99,191,19,0.4))",
-            filter: "blur(60px)",
-            animation: "spin-slow 90s linear infinite",
-          }}
-        />
+        {/* Soft dark overlay to keep the countdown legible */}
+        <div className="absolute inset-0 bg-hero/70" />
       </div>
-
-      <div className="absolute inset-0 bg-hero/40" />
 
       <div className="relative container-page py-20 lg:py-28 text-center text-white">
         <div className="flex flex-wrap items-stretch justify-center gap-3 sm:gap-5">
