@@ -204,4 +204,16 @@
   to { transform: rotate(0deg); }
 }
 
+/* Cycles the decorative wedge through TL → TR → BR → BL corners.
+   Each 90° step uses ease-in-out so the corner "ticks" like a clock
+   while the overall rotation remains continuous. */
+@keyframes countdown-corner-cycle {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  25%  { transform: translate(-50%, -50%) rotate(90deg); }
+  50%  { transform: translate(-50%, -50%) rotate(180deg); }
+  75%  { transform: translate(-50%, -50%) rotate(270deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
 
