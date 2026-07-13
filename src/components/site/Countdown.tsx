@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
+import eventBg from "@/assets/countdown-event-bg.jpg.asset.json";
+
 
 // Single source of truth for the event date.
 const EVENT_DATE = new Date("2025-11-15T10:00:00+01:00").getTime();
