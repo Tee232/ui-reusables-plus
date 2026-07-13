@@ -21,12 +21,13 @@ const LABELS: [keyof ReturnType<typeof calc>, string][] = [
   ["seconds", "Seconds"],
 ];
 
-// Recreates the Figma decorative square: a dark-green angular gradient
-// wedge radiating from one corner along the diagonal.
-// `corner` is expressed as the CSS `from` angle for the conic-gradient
-// so the wedge points toward that corner.
+// Wedge anchored at the top-left corner of the square, radiating along
+// the diagonal — matches the Figma "Component 151" reference. Rotating
+// the whole element 90° at a time walks the wedge around all four corners:
+// TL → TR → BR → BL → TL.
 const WEDGE_BG =
-  "conic-gradient(from 0deg at 50% 50%, rgba(10,60,10,0.95) 0deg, rgba(255,255,255,0) 55deg, rgba(255,255,255,0) 305deg, rgba(10,60,10,0.95) 360deg), linear-gradient(135deg, #eaf0ea 0%, #ffffff 60%, #eaf0ea 100%)";
+  "conic-gradient(from 0deg at 0% 0%, rgba(10,60,10,0.95) 0deg, rgba(10,60,10,0.6) 20deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 360deg), linear-gradient(135deg, #e8efe8 0%, #ffffff 55%, #e8efe8 100%)";
+
 
 export function Countdown() {
   const [t, setT] = useState(() => calc());
