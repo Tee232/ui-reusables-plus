@@ -3,7 +3,7 @@ import wavePattern from "@/assets/wave-pattern.png.asset.json";
 
 export function About() {
   return (
-    <section id="about" className="relative overflow-hidden bg-white py-20 lg:py-24">
+    <section id="about" className="sticky top-0 z-0 relative bg-white py-20 lg:py-24 overflow-hidden">
       <img
         src={wavePattern.url}
         alt=""
