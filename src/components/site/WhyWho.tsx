@@ -31,11 +31,11 @@ const PANELS: Panel[] = [
 export function WhyWho() {
   return (
     <section
-      className="relative"
-      style={{ backgroundColor: "#F1F2F0", height: "180vh" }}
+      className="relative z-10 py-20 lg:py-24"
+      style={{ backgroundColor: "#F1F2F0" }}
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-6xl bg-white rounded-3xl shadow-[var(--shadow-card)] p-4 sm:p-8 md:p-10">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="bg-white rounded-3xl shadow-[var(--shadow-card)] p-4 sm:p-8 md:p-10">
           <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {PANELS.map((p) => (
               <article
