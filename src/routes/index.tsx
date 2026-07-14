@@ -24,8 +24,10 @@ function Index() {
       <EventHighlights />
       <Sponsorship />
       <Countdown />
-      <About />
-      <WhyWho />
+      <div className="relative">
+        <About />
+        <WhyWho />
+      </div>
       <Schedule />
       <Blog />
       <FAQ />
