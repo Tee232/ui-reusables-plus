@@ -1,9 +1,17 @@
 import aboutGroup from "@/assets/about-group.jpg";
+import wavePattern from "@/assets/wave-pattern.png.asset.json";
 
 export function About() {
   return (
-    <section id="about" className="bg-background py-20 lg:py-24">
-      <div className="container-page grid lg:grid-cols-2 gap-12 items-center">
+    <section id="about" className="relative overflow-hidden bg-white py-20 lg:py-24">
+      <img
+        src={wavePattern.url}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 select-none"
+      />
+      <div className="relative container-page grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] font-semibold text-brand mb-3">
             About Us
