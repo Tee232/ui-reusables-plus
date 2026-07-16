@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import mascot from "@/assets/faq-mascot.png";
+import mascotAsset from "@/assets/faq-mascot.png.asset.json";
 
 type Category =
   | "General Information"
@@ -118,99 +118,95 @@ export function FAQ() {
 
   return (
     <section id="faq" className="bg-background py-20 lg:py-24">
-      <div className="container-page max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 rounded-3xl overflow-hidden">
-          {/* Left panel ~40% */}
-          <div className="lg:col-span-2 bg-[#F9F9F9] rounded-3xl p-8 lg:p-10 flex flex-col">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-heading leading-tight">
-              Got Questions?
-              <br />
-              <span className="text-brand">We've Got Answers</span>
-            </h2>
-            <p className="mt-4 text-body text-sm md:text-base leading-relaxed">
-              Everything you need to know about TechXplore Summit — from registration to logistics.
-            </p>
-            <div className="mt-auto pt-8 flex justify-center">
-              <img
-                src={mascot}
-                alt=""
-                width={700}
-                height={700}
-                loading="lazy"
-                className="h-56 md:h-72 w-auto object-contain"
-              />
-            </div>
+      <div className="grid lg:grid-cols-5 items-stretch">
+        {/* Left panel ~40% */}
+        <div className="lg:col-span-2 bg-[#F9F9F9] p-8 lg:p-12 xl:p-16 flex flex-col">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-heading leading-tight">
+            Got Questions?
+            <br />
+            <span className="text-brand">We've Got Answers</span>
+          </h2>
+          <p className="mt-4 text-body text-sm md:text-base leading-relaxed max-w-md">
+            Everything you need to know about TechXplore Summit — from registration to logistics.
+          </p>
+          <div className="mt-8 lg:mt-auto lg:pt-8 flex justify-center flex-1 items-end">
+            <img
+              src={mascotAsset.url}
+              alt=""
+              loading="lazy"
+              className="h-64 sm:h-80 md:h-96 lg:h-[420px] w-auto object-contain"
+            />
           </div>
+        </div>
 
-          {/* Right panel ~60% */}
-          <div className="lg:col-span-3 bg-white rounded-3xl p-6 md:p-8 lg:p-10 shadow-[var(--shadow-card)]">
-            <h3 className="text-xl md:text-2xl font-bold text-heading mb-6">
-              Frequently Asked Questions
-            </h3>
+        {/* Right panel ~60% */}
+        <div className="lg:col-span-3 bg-white p-6 md:p-8 lg:p-12 xl:p-16">
+          <h3 className="text-xl md:text-2xl font-bold text-heading mb-6">
+            Frequently Asked Questions
+          </h3>
 
-            {/* Category tabs */}
-            <div className="-mx-6 md:-mx-8 lg:-mx-10 px-6 md:px-8 lg:px-10 border-b border-border overflow-x-auto scrollbar-hide">
-              <div className="flex gap-6 min-w-max">
-                {CATEGORIES.map((c) => {
-                  const active = c === category;
-                  return (
-                    <button
-                      key={c}
-                      type="button"
-                      onClick={() => {
-                        setCategory(c);
-                        setOpen(0);
-                      }}
-                      className={`relative pb-3 text-sm whitespace-nowrap transition-colors ${
-                        active
-                          ? "text-heading font-semibold"
-                          : "text-body/70 hover:text-heading"
-                      }`}
-                    >
-                      {c}
-                      {active && (
-                        <span className="absolute left-0 right-0 -bottom-px h-[3px] rounded-full bg-brand" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Accordion */}
-            <div className="divide-y divide-border">
-              {items.map((f, i) => {
-                const isOpen = open === i;
+          {/* Category tabs */}
+          <div className="border-b border-border overflow-x-auto scrollbar-hide">
+            <div className="flex gap-6 min-w-max">
+              {CATEGORIES.map((c) => {
+                const active = c === category;
                 return (
                   <button
-                    key={f.q}
+                    key={c}
                     type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full text-left py-5 flex items-start gap-4"
+                    onClick={() => {
+                      setCategory(c);
+                      setOpen(0);
+                    }}
+                    className={`relative pb-3 text-sm whitespace-nowrap transition-colors ${
+                      active
+                        ? "text-heading font-semibold"
+                        : "text-body/70 hover:text-heading"
+                    }`}
                   >
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm md:text-base font-semibold text-heading">
-                        {f.q}
-                      </p>
-                      <div
-                        className={`grid transition-all duration-300 ${
-                          isOpen
-                            ? "grid-rows-[1fr] opacity-100 mt-2"
-                            : "grid-rows-[0fr] opacity-0"
-                        }`}
-                      >
-                        <p className="overflow-hidden text-sm text-body leading-relaxed">
-                          {f.a}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="mt-1 text-heading shrink-0">
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                    {c}
+                    {active && (
+                      <span className="absolute left-0 right-0 -bottom-px h-[3px] rounded-full bg-brand" />
+                    )}
                   </button>
                 );
               })}
             </div>
+          </div>
+
+          {/* Accordion */}
+          <div className="divide-y divide-border">
+            {items.map((f, i) => {
+              const isOpen = open === i;
+              return (
+                <button
+                  key={f.q}
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="w-full text-left py-5 flex items-start gap-4"
+                >
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm md:text-base font-semibold text-heading">
+                      {f.q}
+                    </p>
+                    <div
+                      className={`grid transition-all duration-300 ${
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100 mt-2"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <p className="overflow-hidden text-sm text-body leading-relaxed">
+                        {f.a}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="mt-1 text-heading shrink-0">
+                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
