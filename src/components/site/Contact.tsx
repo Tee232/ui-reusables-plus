@@ -12,7 +12,10 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative bg-[#F7FBF4] pt-14 lg:pt-16 pb-16 lg:pb-20 overflow-visible">
+    <section
+      id="contact"
+      className="relative bg-[#F7FBF4] pt-14 lg:pt-16 pb-16 lg:pb-20 overflow-visible"
+    >
       <div className="container-page">
         <div className="relative mx-auto w-full max-w-[1240px] rounded-[2rem] bg-white shadow-[var(--shadow-elevated)] overflow-hidden z-20 md:translate-y-[40%] lg:translate-y-[42%] md:h-[665px]">
           <div className="grid md:grid-cols-[0.43fr_0.57fr] gap-6 md:h-[665px]">
@@ -28,7 +31,8 @@ export function Contact() {
                   <MapPin size={18} className="text-brand shrink-0 mt-0.5" />
                   <p className="text-white/80 leading-relaxed">
                     Plot 118, Landmark Event Centre,
-                    <br />Victoria Island, Lagos State.
+                    <br />
+                    Victoria Island, Lagos State.
                   </p>
                 </div>
                 <div className="flex gap-3">
@@ -98,19 +102,9 @@ function Field({ label, name, type = "text", placeholder, as = "input" }: FieldP
     <label className="block">
       <span className="sr-only">{label}</span>
       {as === "textarea" ? (
-        <textarea
-          name={name}
-          rows={4}
-          placeholder={placeholder}
-          className={base}
-        />
+        <textarea name={name} rows={4} placeholder={placeholder} className={base} />
       ) : (
-        <input
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          className={base}
-        />
+        <input name={name} type={type} placeholder={placeholder} className={base} />
       )}
     </label>
   );
