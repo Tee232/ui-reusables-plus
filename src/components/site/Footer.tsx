@@ -1,19 +1,27 @@
 export function Footer() {
   return (
-    <footer className="bg-hero overflow-hidden">
-      <div className="container-page py-10 text-center">
-        <p className="text-white/60 text-sm">
+    <footer className="relative overflow-hidden bg-hero pt-28 lg:pt-32 pb-24 lg:pb-28">
+      <div className="absolute inset-0 opacity-[0.06]" style={{
+        backgroundImage:
+          "linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }} />
+
+      <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#d9ffca] via-[#d9ffca]/30 to-transparent blur-3xl opacity-80" />
+
+      <div className="relative container-page pt-10 text-center">
+        <p className="text-white/70 text-sm md:text-base">
           © {new Date().getFullYear()} Vatebra Academy — All rights reserved.
         </p>
       </div>
-      <div className="text-center pb-6 select-none">
+
+      <div className="relative text-center select-none pt-14 lg:pt-16">
         <span
-          className="block font-extrabold text-transparent bg-clip-text"
+          className="block mx-auto font-extrabold text-white/10"
           style={{
-            fontSize: "clamp(3rem, 14vw, 12rem)",
+            fontSize: "clamp(6rem, 12vw, 11rem)",
             lineHeight: 0.9,
-            backgroundImage:
-              "linear-gradient(180deg, rgba(99,191,19,0.35) 0%, rgba(99,191,19,0.05) 100%)",
+            letterSpacing: "-0.06em",
           }}
         >
           TechXplore Summit

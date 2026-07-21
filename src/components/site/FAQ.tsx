@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import mascotAsset from "@/assets/faq-mascot.png.asset.json";
+import faqIllustration from "../../assets/images/faq-illustration.png";
 
 type Category =
   | "General Information"
@@ -117,37 +117,43 @@ export function FAQ() {
   const items = FAQS[category];
 
   return (
-    <section id="faq" className="bg-background py-20 lg:py-24">
-      <div className="grid lg:grid-cols-5 items-stretch">
+    <section id="faq" className="bg-background py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-5 items-stretch gap-0">
         {/* Left panel ~40% */}
-        <div className="lg:col-span-2 bg-[#F9F9F9] p-8 lg:p-12 xl:p-16 flex flex-col">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-heading leading-tight">
-            Got Questions?
-            <br />
-            <span className="text-brand">We've Got Answers</span>
-          </h2>
-          <p className="mt-4 text-body text-sm md:text-base leading-relaxed max-w-md">
-            Everything you need to know about TechXplore Summit — from registration to logistics.
-          </p>
-          <div className="mt-8 lg:mt-auto lg:pt-8 flex justify-center flex-1 items-end">
+        <div className="lg:col-span-2 bg-[#F9F9F9] p-8 lg:p-10 xl:p-12 flex flex-col h-full">
+          <div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-heading leading-tight">
+              Have questions?
+              <br />
+              <span className="text-brand">We have answers</span>
+            </h2>
+            <p className="mt-4 text-body text-sm md:text-base leading-relaxed max-w-xl">
+              Everything you need to know about TechXplore Summit — from registration to logistics.
+            </p>
+          </div>
+
+          <div className="mt-8 flex justify-start">
             <img
-              src={mascotAsset.url}
-              alt=""
+              src={faqIllustration}
+              alt="FAQ illustration"
               loading="lazy"
-              className="h-64 sm:h-80 md:h-96 lg:h-[420px] w-auto object-contain"
+              className="w-full max-w-[420px] h-auto object-contain"
             />
           </div>
         </div>
 
         {/* Right panel ~60% */}
-        <div className="lg:col-span-3 bg-white p-6 md:p-8 lg:p-12 xl:p-16">
-          <h3 className="text-xl md:text-2xl font-bold text-heading mb-6">
+        <div className="lg:col-span-3 bg-white p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col h-full">
+          <h3 className="text-2xl md:text-3xl font-bold text-heading mb-6">
             Frequently Asked Questions
           </h3>
 
           {/* Category tabs */}
-          <div className="border-b border-border overflow-x-auto scrollbar-hide">
-            <div className="flex gap-6 min-w-max">
+          <div
+            className="border-b border-border overflow-x-auto scrollbar-hide"
+            style={{ WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}
+          >
+            <div className="flex gap-6 min-w-max py-2">
               {CATEGORIES.map((c) => {
                 const active = c === category;
                 return (
@@ -175,7 +181,7 @@ export function FAQ() {
           </div>
 
           {/* Accordion */}
-          <div className="divide-y divide-border">
+          <div className="mt-6 divide-y divide-border">
             {items.map((f, i) => {
               const isOpen = open === i;
               return (
