@@ -39,18 +39,21 @@ export function Hero() {
       <div className="container-page relative pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
-            <h1 className="max-w-[15ch] text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white">
-              Unleash the Future of Tech at{" "}
-              <span className="text-gradient-brand">TechXplore</span> Summit 2025
+            <h1 className="max-w-3xl text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white">
+              <span className="block">Unleash the Future of Tech at</span>
+              <span className="inline-block text-gradient-brand">TechXplore</span>
+              <span className="block">Summit 2025</span>
             </h1>
 
             <div className="mt-6">
-              <Button variant="brand" size="lg">Register</Button>
+              <Button variant="brand" size="lg">
+                Register
+              </Button>
             </div>
 
             <p className="mt-8 max-w-lg text-white/80 leading-relaxed">
-              Join us for 3 days of insight, innovation and unstoppable ambition —
-              the continent's biggest gathering for tech's next chapter.
+              Join us for 3 days of insight, innovation and unstoppable ambition — the continent's
+              biggest gathering for tech's next chapter.
             </p>
 
             <div className="mt-8 grid sm:grid-cols-3 gap-4">

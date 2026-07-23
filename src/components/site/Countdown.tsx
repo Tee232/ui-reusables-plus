@@ -1,93 +1,127 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./Button";
-import eventBg from "@/assets/countdown-event-bg.jpg.asset.json";
+import conferenceImage from "../../assets/images/conference image.jpg";
+import rotatingOverlay from "../../assets/graphics/countdown-rotating-overlay.svg";
 
+const COUNTDOWN_START_SECONDS = 5 * 24 * 60 * 60 + 12 * 60 * 60 + 56 * 60 + 45;
 
-// Single source of truth for the event date.
-const EVENT_DATE = new Date("2025-11-15T10:00:00+01:00").getTime();
+function calc(remainingSeconds: number) {
+  const safeRemainingSeconds = Math.max(0, remainingSeconds);
+  const days = Math.floor(safeRemainingSeconds / 86_400);
+  const hours = Math.floor((safeRemainingSeconds % 86_400) / 3_600);
+  const minutes = Math.floor((safeRemainingSeconds % 3_600) / 60);
+  const seconds = safeRemainingSeconds % 60;
 
-function calc() {
-  const diff = Math.max(0, EVENT_DATE - Date.now());
   return {
-    days: Math.floor(diff / 86_400_000),
-    hours: Math.floor((diff % 86_400_000) / 3_600_000),
-    minutes: Math.floor((diff % 3_600_000) / 60_000),
-    seconds: Math.floor((diff % 60_000) / 1000),
+    days,
+    hours,
+    minutes,
+    seconds,
   };
 }
 
-const LABELS: [keyof ReturnType<typeof calc>, string][] = [
-  ["days", "Days"],
-  ["hours", "Hours"],
-  ["minutes", "Minutes"],
-  ["seconds", "Seconds"],
-];
-
-// Wedge anchored at the top-left corner of the square, radiating along
-// the diagonal — matches the Figma "Component 151" reference. Rotating
-// the whole element 90° at a time walks the wedge around all four corners:
-// TL → TR → BR → BL → TL.
-const WEDGE_BG =
-  "conic-gradient(from 0deg at 0% 0%, rgba(10,60,10,0.95) 0deg, rgba(10,60,10,0.6) 20deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 360deg), linear-gradient(135deg, #e8efe8 0%, #ffffff 55%, #e8efe8 100%)";
-
-
+const LABELS = [
+  { key: "days", label: "Days", color: "#6CD400" },
+  { key: "hours", label: "Hours", color: "#FFC107" },
+  { key: "minutes", label: "Minutes", color: "#E31B23" },
+  { key: "seconds", label: "Seconds", color: "#6CD400" },
+] as const;
 export function Countdown() {
-  const [t, setT] = useState(() => calc());
+  const [remainingSeconds, setRemainingSeconds] = useState(COUNTDOWN_START_SECONDS);
+  const [secondsAnimating, setSecondsAnimating] = useState(false);
+  const previousSecondsRef = useRef(remainingSeconds % 60);
 
   useEffect(() => {
-    const id = setInterval(() => setT(calc()), 1000);
-    return () => clearInterval(id);
+    const id = window.setInterval(() => {
+      setRemainingSeconds((current) => Math.max(0, current - 1));
+    }, 1000);
+
+    return () => window.clearInterval(id);
   }, []);
 
-  return (
-    <section className="relative overflow-hidden bg-hero">
-      {/* Event background photo — sits behind the decorative wedge. */}
-      <img
-        src={eventBg.url}
-        alt=""
-        aria-hidden
-        loading="lazy"
-        width={1920}
-        height={1080}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
-      />
-      {/* Decorative rotating wedge background — behind the timer, above the photo. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+  const t = calc(remainingSeconds);
 
-        <div
-          className="absolute left-1/2 top-1/2 aspect-square w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-30 mix-blend-screen"
-          style={{
-            background: WEDGE_BG,
-            animation: "countdown-corner-cycle 14s linear infinite",
-          }}
-        />
-        {/* Soft dark overlay to keep the countdown legible */}
-        <div className="absolute inset-0 bg-hero/70" />
+  useEffect(() => {
+    const currentSeconds = t.seconds;
+
+    if (currentSeconds !== previousSecondsRef.current) {
+      previousSecondsRef.current = currentSeconds;
+      setSecondsAnimating(true);
+
+      const timeoutId = window.setTimeout(() => setSecondsAnimating(false), 320);
+      return () => window.clearTimeout(timeoutId);
+    }
+  }, [t.seconds]);
+
+  return (
+    <section
+      className="relative isolate overflow-hidden"
+      style={{
+        backgroundImage: `url(${conferenceImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Designer artwork rotated as a single centered layered element. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2">
+          <img
+            src={rotatingOverlay}
+            alt=""
+            className="block"
+            style={{
+              width: "250vmax",
+              height: "250vmax",
+              maxWidth: "none",
+              maxHeight: "none",
+              animation: "countdown-corner-cycle 15s linear infinite",
+              transformOrigin: "center center",
+              willChange: "transform",
+            }}
+          />
+        </div>
       </div>
 
-      <div className="relative container-page py-20 lg:py-28 text-center text-white">
-        <div className="flex flex-wrap items-stretch justify-center gap-3 sm:gap-5">
-          {LABELS.map(([key, label]) => (
-            <div
-              key={label}
-              className="min-w-[86px] sm:min-w-[120px] rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md px-4 py-5 sm:px-6 sm:py-6 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.6)]"
-            >
-              <div className="text-4xl sm:text-6xl md:text-7xl font-bold text-brand tabular-nums leading-none">
-                {String(t[key]).padStart(2, "0")}
+      <div className="relative z-10 container-page flex min-h-[500px] flex-col items-center justify-center py-16 text-center text-white sm:min-h-[540px] sm:py-20 lg:min-h-[580px] lg:py-28">
+        <div className="flex flex-wrap items-start justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+          {LABELS.map(({ key, label, color }) => {
+            const isSeconds = key === "seconds";
+
+            return (
+              <div
+                key={label}
+                className="flex min-w-[72px] flex-col items-center sm:min-w-[96px] md:min-w-[110px]"
+              >
+                <div
+                  className="font-display text-[2.75rem] font-black leading-none tracking-[-0.04em] tabular-nums sm:text-[4.5rem] md:text-[5.75rem] lg:text-[7rem]"
+                  style={{
+                    color,
+                    animation:
+                      isSeconds && secondsAnimating
+                        ? "countdown-seconds-pop 320ms ease-out"
+                        : "none",
+                    transformOrigin: "center center",
+                  }}
+                >
+                  {String(t[key]).padStart(2, "0")}
+                </div>
+                <div className="mt-2 text-[10px] font-medium uppercase tracking-[0.18em] text-white sm:text-xs">
+                  {label}
+                </div>
               </div>
-              <div className="mt-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/80">
-                {label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        <p className="mt-10 text-white/90 text-base sm:text-lg">
+        <p className="mt-10 text-base text-white sm:text-lg">
           The Future of Tech Awaits — Reserve Your Seat
         </p>
 
         <div className="mt-6">
-          <Button variant="brand" size="lg">Register Now</Button>
+          <Button variant="brand" size="lg">
+            Register Now
+          </Button>
         </div>
       </div>
     </section>
