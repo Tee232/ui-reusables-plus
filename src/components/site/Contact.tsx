@@ -17,7 +17,7 @@ export function Contact() {
       className="relative bg-[#F7FBF4] pt-14 lg:pt-16 pb-16 lg:pb-20 overflow-visible"
     >
       <div className="container-page">
-        <div className="relative mx-auto w-full max-w-[1240px] rounded-[2rem] bg-white shadow-[var(--shadow-elevated)] overflow-hidden z-20 md:translate-y-[40%] lg:translate-y-[42%] md:h-[665px]">
+        <div className="relative mx-auto w-full max-w-[1240px] rounded-[2rem] bg-white shadow-[var(--shadow-elevated)] overflow-hidden z-20 md:translate-y-[18%] lg:translate-y-[20%] md:h-[665px]">
           <div className="grid md:grid-cols-[0.43fr_0.57fr] gap-6 md:h-[665px]">
             {/* Info panel */}
             <div className="bg-hero text-white p-6 md:p-8 lg:p-10 flex flex-col">

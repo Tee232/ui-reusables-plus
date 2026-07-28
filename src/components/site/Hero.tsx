@@ -39,9 +39,18 @@ export function Hero() {
       <div className="container-page relative pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
-            <h1 className="max-w-3xl text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white">
-              <span className="block">Unleash the Future of Tech at</span>
-              <span className="inline-block text-gradient-brand">TechXplore</span>
+            <h1
+              className="max-w-3xl text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white"
+              style={{
+                fontSize: "56px",
+                fontFamily: '"DaxlinePro", "Inter", ui-sans-serif, system-ui, sans-serif',
+              }}
+            >
+              <span className="block lg:whitespace-nowrap">Unleash the Future of</span>
+
+              <span className="block whitespace-nowrap">
+                Tech at <span className="text-gradient-brand">TechXplore</span>
+              </span>
               <span className="block">Summit 2025</span>
             </h1>
 

@@ -12,13 +12,7 @@ export function Footer() {
 
       <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#d9ffca] via-[#d9ffca]/30 to-transparent blur-3xl opacity-80" />
 
-      <div className="relative container-page pt-10 text-center">
-        <p className="text-white/70 text-sm md:text-base">
-          © {new Date().getFullYear()} Vatebra Academy — All rights reserved.
-        </p>
-      </div>
-
-      <div className="relative text-center select-none pt-14 lg:pt-16">
+      <div className="relative text-center select-none pt-16 lg:pt-24">
         <span
           className="block mx-auto font-extrabold text-white/10"
           style={{
@@ -29,6 +23,11 @@ export function Footer() {
         >
           TechXplore Summit
         </span>
+      </div>
+      <div className="relative container-page mt-16 lg:mt-20 text-center">
+        <p className="text-white/70 text-sm md:text-base">
+          © {new Date().getFullYear()} Vatebra Academy — All rights reserved.
+        </p>
       </div>
     </footer>
   );
