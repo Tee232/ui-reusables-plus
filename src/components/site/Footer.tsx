@@ -16,7 +16,7 @@ export function Footer() {
         <span
           className="block mx-auto font-extrabold text-white/10"
           style={{
-            fontSize: "clamp(6rem, 12vw, 11rem)",
+            fontSize: "clamp(2.5rem, 15vw, 11rem)",
             lineHeight: 0.9,
             letterSpacing: "-0.06em",
           }}

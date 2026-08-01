@@ -117,17 +117,20 @@ export function FAQ() {
   const items = FAQS[category];
 
   return (
-    <section id="faq" className="bg-background py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-5 items-stretch gap-0">
+    <section
+      id="faq"
+      className="bg-background py-12 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
+    >
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-5 items-stretch gap-0 min-w-0">
         {/* Left panel ~40% */}
-        <div className="lg:col-span-2 bg-[#F9F9F9] p-8 lg:p-10 xl:p-12 flex flex-col h-full">
-          <div>
+        <div className="lg:col-span-2 bg-[#F9F9F9] p-8 lg:p-10 xl:p-12 flex flex-col h-full min-w-0">
+          <div className="min-w-0">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-heading leading-tight">
               Have questions?
               <br />
               <span className="text-brand">We have answers</span>
             </h2>
-            <p className="mt-4 text-body text-sm md:text-base leading-relaxed max-w-xl">
+            <p className="mt-4 text-body text-sm md:text-base leading-relaxed max-w-xl break-words">
               Everything you need to know about TechXplore Summit — from registration to logistics.
             </p>
           </div>
@@ -137,51 +140,56 @@ export function FAQ() {
               src={faqIllustration}
               alt="FAQ illustration"
               loading="lazy"
-              className="w-full max-w-[420px] h-auto object-contain"
+              className="w-full max-w-[180px] sm:max-w-[220px] md:max-w-[280px] lg:max-w-[420px] h-auto object-contain"
             />
           </div>
         </div>
 
         {/* Right panel ~60% */}
-        <div className="lg:col-span-3 bg-white p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col h-full">
+        <div className="lg:col-span-3 bg-white p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col h-full min-w-0">
           <h3 className="text-2xl md:text-3xl font-bold text-heading mb-6">
             Frequently Asked Questions
           </h3>
 
           {/* Category tabs */}
-          <div
-            className="border-b border-border overflow-x-auto scrollbar-hide"
-            style={{ WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}
-          >
-            <div className="flex gap-6 min-w-max py-2">
-              {CATEGORIES.map((c) => {
-                const active = c === category;
-                return (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => {
-                      setCategory(c);
-                      setOpen(0);
-                    }}
-                    className={`relative pb-3 text-sm whitespace-nowrap transition-colors ${
-                      active
-                        ? "text-heading font-semibold"
-                        : "text-body/70 hover:text-heading"
-                    }`}
-                  >
-                    {c}
-                    {active && (
-                      <span className="absolute left-0 right-0 -bottom-px h-[3px] rounded-full bg-brand" />
-                    )}
-                  </button>
-                );
-              })}
+          <div className="relative border-b border-border">
+            <div
+              className="overflow-x-auto scrollbar-hide pb-2 pr-8 sm:pr-10"
+              style={{
+                WebkitOverflowScrolling: "touch",
+                msOverflowStyle: "none",
+                scrollbarWidth: "none",
+              }}
+            >
+              <div className="flex gap-6 min-w-max py-2">
+                {CATEGORIES.map((c) => {
+                  const active = c === category;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => {
+                        setCategory(c);
+                        setOpen(0);
+                      }}
+                      className={`relative pb-3 text-sm whitespace-nowrap transition-colors ${
+                        active ? "text-heading font-semibold" : "text-body/70 hover:text-heading"
+                      }`}
+                    >
+                      {c}
+                      {active && (
+                        <span className="absolute left-0 right-0 -bottom-px h-[3px] rounded-full bg-brand" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-12 lg:hidden bg-gradient-to-l from-transparent to-white" />
           </div>
 
           {/* Accordion */}
-          <div className="mt-6 divide-y divide-border">
+          <div className="mt-6 divide-y divide-border px-1 sm:px-2">
             {items.map((f, i) => {
               const isOpen = open === i;
               return (
@@ -189,20 +197,16 @@ export function FAQ() {
                   key={f.q}
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full text-left py-5 flex items-start gap-4"
+                  className="w-full min-w-0 text-left py-5 flex items-start gap-4"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm md:text-base font-semibold text-heading">
-                      {f.q}
-                    </p>
+                    <p className="text-sm md:text-base font-semibold text-heading">{f.q}</p>
                     <div
                       className={`grid transition-all duration-300 ${
-                        isOpen
-                          ? "grid-rows-[1fr] opacity-100 mt-2"
-                          : "grid-rows-[0fr] opacity-0"
+                        isOpen ? "grid-rows-[1fr] opacity-100 mt-2" : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
-                      <p className="overflow-hidden text-sm text-body leading-relaxed">
+                      <p className="overflow-hidden text-sm text-body leading-relaxed break-words">
                         {f.a}
                       </p>
                     </div>

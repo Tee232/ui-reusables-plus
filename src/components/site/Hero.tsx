@@ -36,13 +36,12 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container-page relative pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-40 lg:pb-28">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="animate-fade-up">
             <h1
-              className="max-w-3xl text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] !text-white"
+              className="max-w-full sm:max-w-3xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] sm:leading-[1.1] !text-white"
               style={{
-                fontSize: "56px",
                 fontFamily: '"DaxlinePro", "Inter", ui-sans-serif, system-ui, sans-serif',
               }}
             >
@@ -60,12 +59,12 @@ export function Hero() {
               </Button>
             </div>
 
-            <p className="mt-8 max-w-lg text-white/80 leading-relaxed">
+            <p className="mt-8 max-w-full sm:max-w-lg text-sm sm:text-base text-white/80 leading-relaxed whitespace-normal break-words">
               Join us for 3 days of insight, innovation and unstoppable ambition — the continent's
               biggest gathering for tech's next chapter.
             </p>
 
-            <div className="mt-8 grid sm:grid-cols-3 gap-4">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {META.map((m) => (
                 <div
                   key={m.label}
@@ -87,8 +86,8 @@ export function Hero() {
 
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative animate-float">
-              <div className="absolute -inset-6 rounded-full bg-brand/20 blur-3xl" />
-              <div className="relative h-[340px] w-[340px] md:h-[440px] md:w-[440px] rounded-full overflow-hidden ring-4 ring-brand/40 shadow-2xl">
+              <div className="absolute -inset-4 sm:-inset-6 rounded-full bg-brand/20 blur-3xl" />
+              <div className="relative h-[260px] w-[260px] sm:h-[320px] sm:w-[320px] md:h-[380px] md:w-[380px] lg:h-[440px] lg:w-[440px] rounded-full overflow-hidden ring-4 ring-brand/40 shadow-2xl">
                 <img
                   src={heroVr}
                   alt="Woman wearing futuristic VR headset"
